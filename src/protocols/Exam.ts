@@ -3,5 +3,5 @@ export interface ExamBody {
     link: string;
     categoryName: string;
     teacherName: string;
-    subject: string;
+    subjectName: string;
 }

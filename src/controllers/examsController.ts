@@ -8,7 +8,7 @@ async function postExam(req: Request, res: Response) {
     const link: string = req.body.link;
     const categoryName: string = req.body.categoryName;
     const teacherName: string = req.body.teacherName;
-    const subject: string = req.body.subject;
+    const subjectName: string = req.body.subject;
 
     try {
         const body = examService.create({
@@ -16,7 +16,7 @@ async function postExam(req: Request, res: Response) {
             link,
             categoryName,
             teacherName,
-            subject,
+            subjectName,
         });
         res.send(body);
     } catch (error) {
