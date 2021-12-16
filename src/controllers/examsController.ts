@@ -6,8 +6,8 @@ import * as examService from '../services/examService';
 async function postExam(req: Request, res: Response) {
     const name: string = req.body.name;
     const link: string = req.body.link;
-    const categoryName: string = req.body.categoryName;
-    const teacherName: string = req.body.teacherName;
+    const categoryName: string = req.body.category;
+    const teacherName: string = req.body.teacher;
     const subjectName: string = req.body.subject;
 
     try {
