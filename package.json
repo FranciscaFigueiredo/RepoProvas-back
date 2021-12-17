@@ -6,7 +6,6 @@
   "scripts": {
     "build": "NODE_ENV=production npx tsc --outDir dist",
     "start": "NODE_ENV=production NODE_TLS_REJECT_UNAUTHORIZED=0 node dist/server.js",
-    "start:prod": "NODE_ENV='production' npx nodemon ./src/server.ts",
     "start:dev": "NODE_ENV=dev npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\"",
     "test": "NODE_ENV=test npx jest -i"
   },

@@ -2,7 +2,9 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
+    OneToMany,
 } from 'typeorm';
+import ExamEntity from './ExamEntity';
 
 @Entity('teachers')
 export default class TeacherEntity {
@@ -11,4 +13,7 @@ export default class TeacherEntity {
 
     @Column()
         name: string;
+
+    @OneToMany(() => ExamEntity, (exam) => exam.teacher)
+        exam: ExamEntity;
 }
