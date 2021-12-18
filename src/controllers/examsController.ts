@@ -33,8 +33,8 @@ async function getExams(req: Request, res: Response) {
     }
 }
 
-async function getExamsTeacher(req: Request, res: Response) {
-    const id = Number(req.params.id);
+async function getExamsByTeacher(req: Request, res: Response) {
+    const id = Number(req.params.teacher);
 
     try {
         const exams = await examService.findExamsTeacher(id);
@@ -44,8 +44,20 @@ async function getExamsTeacher(req: Request, res: Response) {
     }
 }
 
+async function getExamsBySubject(req: Request, res: Response) {
+    const id = Number(req.params.teacher);
+
+    try {
+        const exams = await examService.findExamsBySubject(id);
+        res.send(exams);
+    } catch (error) {
+        res.sendStatus(500);
+    }
+}
+
 export {
     postExam,
     getExams,
-    getExamsTeacher,
+    getExamsByTeacher,
+    getExamsBySubject,
 };
