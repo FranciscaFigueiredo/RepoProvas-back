@@ -3,6 +3,7 @@ import CategoryEntity from '../entities/CategoryEntity';
 import ExamEntity from '../entities/ExamEntity';
 import SubjectEntity from '../entities/SubjectEntity';
 import TeacherEntity from '../entities/TeacherEntity';
+import ConflictError from '../errors/Conflict';
 import { ExamBody } from '../protocols/Exam';
 
 async function create(examBody: ExamBody): Promise<any> {
@@ -28,6 +29,11 @@ async function create(examBody: ExamBody): Promise<any> {
         .findOne({ name: subjectName });
 
     // if (subject.id <= 0) return false;
+
+    const search = await getRepository(ExamEntity)
+        .findOne({ name });
+    console.log(search);
+    if (!search) throw new ConflictError('Prova já cadastrada');
 
     const exam = await getRepository(ExamEntity)
         .insert({

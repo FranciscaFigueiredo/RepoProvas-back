@@ -22,6 +22,10 @@ async function postExam(req: Request, res: Response) {
         });
         res.send(body);
     } catch (error) {
+        console.error(error);
+        if (error.name === 'ConflictError') {
+            res.sendStatus(409);
+        }
         res.sendStatus(500);
     }
 }
