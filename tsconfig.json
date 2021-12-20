@@ -2,7 +2,7 @@
     "compilerOptions": {
         "noImplicitAny": true,
         "esModuleInterop": true,
-        "target": "ES6",
+        "target": "ES5",
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true

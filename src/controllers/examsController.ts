@@ -11,7 +11,7 @@ async function postExam(req: Request, res: Response) {
     const subjectName: string = req.body.subject;
 
     try {
-        const body = examService.create({
+        const body = await examService.create({
             name,
             link,
             categoryName,
@@ -24,6 +24,42 @@ async function postExam(req: Request, res: Response) {
     }
 }
 
+async function getExams(req: Request, res: Response) {
+    try {
+        const exams = await examService.findExams();
+        res.send(exams);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
+
+async function getExamsByTeacher(req: Request, res: Response) {
+    const id = Number(req.params.teacher);
+
+    try {
+        const exams = await examService.findExamsByTeacher(id);
+        res.send(exams);
+    } catch (error) {
+        res.sendStatus(500);
+    }
+}
+
+async function getExamsBySubject(req: Request, res: Response) {
+    const id = Number(req.params.subject);
+
+    try {
+        console.log(id);
+        const exams = await examService.findExamsBySubject(id);
+        res.send(exams);
+    } catch (error) {
+        res.sendStatus(500);
+    }
+}
+
 export {
     postExam,
+    getExams,
+    getExamsByTeacher,
+    getExamsBySubject,
 };

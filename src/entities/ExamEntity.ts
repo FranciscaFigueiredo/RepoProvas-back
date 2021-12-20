@@ -2,8 +2,8 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
-    OneToOne,
     JoinColumn,
+    ManyToOne,
 } from 'typeorm';
 
 import CategoryEntity from './CategoryEntity';
@@ -21,15 +21,29 @@ export default class ExamEntity {
     @Column()
         link: string;
 
-    @OneToOne(() => TeacherEntity, { eager: true })
+    @ManyToOne(() => TeacherEntity, (teacher) => teacher.id, { eager: true })
     @JoinColumn({ name: 'teacher_id' })
-        teacherId: TeacherEntity;
+        teacher: TeacherEntity;
 
-    @OneToOne(() => CategoryEntity, { eager: true })
+    @ManyToOne(() => CategoryEntity, (category) => category.id, { eager: true })
     @JoinColumn({ name: 'category_id' })
-        categoryId: CategoryEntity;
+        category: CategoryEntity;
 
-    @OneToOne(() => SubjectEntity, { eager: true })
+    @ManyToOne(() => SubjectEntity, (subject) => subject.id, { eager: true })
     @JoinColumn({ name: 'subject_id' })
-        subjectId: SubjectEntity;
+        subject: SubjectEntity;
+
+    getExam() {
+        return {
+            examId: this.id,
+            name: this.name,
+            link: this.link,
+            teacherId: this.teacher.id,
+            teacherName: this.teacher.name,
+            categoryId: this.category.id,
+            categoryName: this.category.name,
+            subjectId: this.subject.id,
+            subjectName: this.subject.name,
+        };
+    }
 }

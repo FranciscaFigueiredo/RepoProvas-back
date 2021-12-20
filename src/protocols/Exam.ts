@@ -5,3 +5,12 @@ export interface ExamBody {
     teacherName: string;
     subjectName: string;
 }
+
+export interface ExamDB {
+    id: number;
+    name: string;
+    link: string;
+    teacherId: number;
+    categoryId: number;
+    subjectId: number;
+}

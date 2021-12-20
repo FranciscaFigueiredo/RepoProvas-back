@@ -2,7 +2,9 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
+    OneToMany,
 } from 'typeorm';
+import ExamEntity from './ExamEntity';
 
 @Entity('categories')
 export default class CategoryEntity {
@@ -11,4 +13,7 @@ export default class CategoryEntity {
 
     @Column()
         name: string;
+
+    @OneToMany(() => ExamEntity, (exam) => exam.category)
+        exam: ExamEntity;
 }

@@ -4,9 +4,11 @@ import {
     Column,
     OneToOne,
     JoinColumn,
+    OneToMany,
 } from 'typeorm';
+import ExamEntity from './ExamEntity';
 
-import SubjectTypesEntity from './SubjectTypesEntity';
+import PeriodEntity from './PeriodEntity';
 
 @Entity('subjects')
 export default class SubjectEntity {
@@ -16,10 +18,10 @@ export default class SubjectEntity {
     @Column()
         name: string;
 
-    @Column()
-        period: string;
+    @OneToOne(() => PeriodEntity, { eager: true })
+    @JoinColumn({ name: 'period_id' })
+        period: PeriodEntity;
 
-    @OneToOne(() => SubjectTypesEntity, { eager: true })
-    @JoinColumn({ name: 'type_id' })
-        type: SubjectTypesEntity;
+    @OneToMany(() => ExamEntity, (exam) => exam.subject)
+        exam: ExamEntity;
 }
