@@ -2,6 +2,8 @@
 
 import { Request, Response } from 'express';
 import * as examService from '../services/examService';
+import * as teacherService from '../services/teacherService';
+import * as subjectService from '../services/subjectService';
 
 async function postExam(req: Request, res: Response) {
     const name: string = req.body.name;
@@ -20,6 +22,10 @@ async function postExam(req: Request, res: Response) {
         });
         res.send(body);
     } catch (error) {
+        console.error(error);
+        if (error.name === 'ConflictError') {
+            res.sendStatus(409);
+        }
         res.sendStatus(500);
     }
 }
@@ -29,7 +35,6 @@ async function getExams(req: Request, res: Response) {
         const exams = await examService.findExams();
         res.send(exams);
     } catch (error) {
-        console.log(error);
         res.sendStatus(500);
     }
 }
@@ -49,9 +54,26 @@ async function getExamsBySubject(req: Request, res: Response) {
     const id = Number(req.params.subject);
 
     try {
-        console.log(id);
         const exams = await examService.findExamsBySubject(id);
         res.send(exams);
+    } catch (error) {
+        res.sendStatus(500);
+    }
+}
+
+async function getTeachers(req: Request, res: Response) {
+    try {
+        const teachers = await teacherService.findTeachers();
+        res.send(teachers);
+    } catch (error) {
+        res.sendStatus(500);
+    }
+}
+
+async function getSubjects(req: Request, res: Response) {
+    try {
+        const teachers = await subjectService.findSubjects();
+        res.send(teachers);
     } catch (error) {
         res.sendStatus(500);
     }
@@ -62,4 +84,6 @@ export {
     getExams,
     getExamsByTeacher,
     getExamsBySubject,
+    getTeachers,
+    getSubjects,
 };

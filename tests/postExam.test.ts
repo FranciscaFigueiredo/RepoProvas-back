@@ -1,6 +1,10 @@
 import supertest from 'supertest';
 import faker from 'faker';
-import { app } from '../src/app';
+import { app, init } from '../src/app';
+
+beforeAll(async () => {
+    await init();
+});
 
 describe('POST exam', () => {
     test('returns 201', async () => {

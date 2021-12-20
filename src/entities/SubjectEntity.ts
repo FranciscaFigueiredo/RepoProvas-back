@@ -24,4 +24,11 @@ export default class SubjectEntity {
 
     @OneToMany(() => ExamEntity, (exam) => exam.subject)
         exam: ExamEntity;
+
+    getSubject() {
+        return {
+            id: this.id,
+            name: this.name,
+        };
+    }
 }
