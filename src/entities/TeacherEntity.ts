@@ -14,6 +14,13 @@ export default class TeacherEntity {
     @Column()
         name: string;
 
-    @OneToMany(() => ExamEntity, (exam) => exam.teacher)
+    @OneToMany(() => ExamEntity, (exam) => exam.teacher.id)
         exam: ExamEntity;
+
+    getTeacher() {
+        return {
+            teacherId: this.id,
+            teacherName: this.name,
+        };
+    }
 }

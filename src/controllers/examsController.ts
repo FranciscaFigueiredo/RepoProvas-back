@@ -29,6 +29,7 @@ async function getExams(req: Request, res: Response) {
         const exams = await examService.findExams();
         res.send(exams);
     } catch (error) {
+        console.log(error);
         res.sendStatus(500);
     }
 }
@@ -37,7 +38,7 @@ async function getExamsByTeacher(req: Request, res: Response) {
     const id = Number(req.params.teacher);
 
     try {
-        const exams = await examService.findExamsTeacher(id);
+        const exams = await examService.findExamsByTeacher(id);
         res.send(exams);
     } catch (error) {
         res.sendStatus(500);
@@ -45,9 +46,10 @@ async function getExamsByTeacher(req: Request, res: Response) {
 }
 
 async function getExamsBySubject(req: Request, res: Response) {
-    const id = Number(req.params.teacher);
+    const id = Number(req.params.subject);
 
     try {
+        console.log(id);
         const exams = await examService.findExamsBySubject(id);
         res.send(exams);
     } catch (error) {

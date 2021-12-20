@@ -4,8 +4,8 @@ import {
     Column,
 } from 'typeorm';
 
-@Entity('subject_types')
-export default class SubjectTypesEntity {
+@Entity('periods')
+export default class PeriodEntity {
     @PrimaryGeneratedColumn()
         id: number;
 

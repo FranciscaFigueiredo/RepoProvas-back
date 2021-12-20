@@ -3,7 +3,7 @@ import CategoryEntity from '../entities/CategoryEntity';
 import ExamEntity from '../entities/ExamEntity';
 import SubjectEntity from '../entities/SubjectEntity';
 import TeacherEntity from '../entities/TeacherEntity';
-import { ExamBody, ExamDB } from '../protocols/Exam';
+import { ExamBody } from '../protocols/Exam';
 
 async function create(examBody: ExamBody): Promise<any> {
     const {
@@ -13,21 +13,28 @@ async function create(examBody: ExamBody): Promise<any> {
         teacherName,
         subjectName,
     } = examBody;
+    console.log(examBody);
 
     const teacher = await getRepository(TeacherEntity)
         .findOne({ name: teacherName });
 
-    if (teacher.id !== 0) return false;
+    console.log(teacher);
+
+    // if (teacher.id !== 0) return false;
 
     const category = await getRepository(CategoryEntity)
         .findOne({ name: categoryName });
+        // .findOne({ name: categoryName });
+    console.log(category);
 
-    if (category.id !== 0) return false;
+    // if (category.id !== 0) return false;
 
     const subject = await getRepository(SubjectEntity)
         .findOne({ name: subjectName });
+        // .findOne({ name: subjectName });
+    console.log(subject);
 
-    if (subject.id !== 0) return false;
+    // if (subject.id !== 0) return false;
 
     const exam = await getRepository(ExamEntity)
         .insert({
@@ -47,32 +54,18 @@ async function findExams(): Promise<any> {
     return exams.map((exam) => exam.getExam());
 }
 
-async function findExamsTeacher(id: number): Promise<ExamEntity[]> {
-    // const exams = await getRepository(ExamEntity)
-    //     .find({ select: [id] });
-
-    const exam = getRepository(ExamEntity).find({
-        join: {
-            alias: 'teacherId',
-            leftJoinAndSelect: {
-                teachers: 'exams.teacherId',
-            },
-        },
+async function findExamsByTeacher(id: number): Promise<ExamEntity[]> {
+    const exams = await getRepository(ExamEntity).find({
+        where: { id },
     });
-    //     .createQueryBuilder('exams')
-    //     .where('exams.teacher.id = :id', { id })
-    //     .leftJoinAndSelect('exams.teacher.id', 'teacher.id')
-    //     .execute();
 
-    return exam;
+    return exams.map((exam: { getExam: () => any; }) => exam.getExam());
 }
 
-async function findExamsBySubject(id: number): Promise<any> {
-    const exams = await getRepository(ExamEntity)
-        .createQueryBuilder('exams')
-        .where('exams.subject.id = :id', { id })
-        .leftJoinAndSelect('exams.subject.id', 'subject.id')
-        .execute();
+async function findExamsBySubject(id: number): Promise<ExamEntity[]> {
+    const exams = await getRepository(ExamEntity).find({
+        where: { id },
+    });
 
     return exams.map((exam: { getExam: () => any; }) => exam.getExam());
 }
@@ -80,6 +73,6 @@ async function findExamsBySubject(id: number): Promise<any> {
 export {
     create,
     findExams,
-    findExamsTeacher,
+    findExamsByTeacher,
     findExamsBySubject,
 };
