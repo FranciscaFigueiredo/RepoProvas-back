@@ -13,28 +13,21 @@ async function create(examBody: ExamBody): Promise<any> {
         teacherName,
         subjectName,
     } = examBody;
-    console.log(examBody);
 
     const teacher = await getRepository(TeacherEntity)
         .findOne({ name: teacherName });
 
-    console.log(teacher);
-
-    // if (teacher.id !== 0) return false;
+    // if (teacher.id <= 0) return false;
 
     const category = await getRepository(CategoryEntity)
         .findOne({ name: categoryName });
-        // .findOne({ name: categoryName });
-    console.log(category);
 
-    // if (category.id !== 0) return false;
+    // if (category.id <= 0) return false;
 
     const subject = await getRepository(SubjectEntity)
         .findOne({ name: subjectName });
-        // .findOne({ name: subjectName });
-    console.log(subject);
 
-    // if (subject.id !== 0) return false;
+    // if (subject.id <= 0) return false;
 
     const exam = await getRepository(ExamEntity)
         .insert({

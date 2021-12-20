@@ -19,8 +19,8 @@ export default class TeacherEntity {
 
     getTeacher() {
         return {
-            teacherId: this.id,
-            teacherName: this.name,
+            id: this.id,
+            name: this.name,
         };
     }
 }

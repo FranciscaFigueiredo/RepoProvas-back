@@ -9,6 +9,13 @@ async function findTeacherBySubject(id: number): Promise<TeacherEntity[]> {
     return teachers.map((teacher: { getTeacher: () => any; }) => teacher.getTeacher());
 }
 
+async function findTeachers(): Promise<TeacherEntity[]> {
+    const teachers = await getRepository(TeacherEntity).find();
+
+    return teachers.map((teacher: { getTeacher: () => any; }) => teacher.getTeacher());
+}
+
 export {
     findTeacherBySubject,
+    findTeachers,
 };

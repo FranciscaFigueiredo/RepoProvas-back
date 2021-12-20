@@ -4,7 +4,7 @@ import { app } from '../src/app';
 
 describe('GET exams', () => {
     test('returns 201', async () => {
-        const result = await supertest(app).get('/exams');
+        const result = await supertest(app).get('/exam');
 
         expect(result.status).toEqual(201);
     });
